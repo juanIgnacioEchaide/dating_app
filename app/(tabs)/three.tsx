@@ -17,7 +17,7 @@ export default function TabThreeScreen() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>You have a match with:</Text>
-            {[1, 2, 3, 4, 5].map(item => <><View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /><MatchItem /></>)}
+         
         </View>
     );
 }

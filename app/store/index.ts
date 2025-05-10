@@ -5,16 +5,17 @@ import matches from '../features/matches/matchesSlice'
 import profile from '../features/profile/profileSlice'
 import tutorial from '../features/tutorial/tutorialSlice'
 import settings from '../features/settings/settingsSlice' 
-
+import swipe from '../features/shared/swipe/swipeSlice' 
 
 export const store = configureStore({
   reducer: {
+    swipe,
     lecafe,
     messages,
     matches,
     profile,
     tutorial,
-    settings
+    settings,
   }
 })
 

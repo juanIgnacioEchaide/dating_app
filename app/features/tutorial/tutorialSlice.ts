@@ -5,7 +5,7 @@ type TutorialStep = {
   completedAt: number
 }
 
-type TutorialState = {
+export type TutorialState = {
   completedSteps: TutorialStep[]
   currentStep: number
 }

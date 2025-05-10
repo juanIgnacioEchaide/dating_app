@@ -6,7 +6,7 @@ export type LecafeItem = {
   content: string
 }
 
-type LecafeState = {
+export type LecafeState = {
   conversations: LecafeItem[]
   status: 'idle' | 'loading' | 'error'
 }

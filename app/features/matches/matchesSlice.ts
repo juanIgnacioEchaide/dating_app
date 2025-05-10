@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { fetchMatches } from './matchesThunk'
 
 type User = {
   id: string
@@ -7,14 +8,18 @@ type User = {
   photoUrl?: string
 }
 
-type MatchesState = {
+export type MatchesState = {
   list: User[]
   likedUsers: string[]
+  loading: boolean
+  error: string | null
 }
 
 const initialState: MatchesState = {
   list: [],
-  likedUsers: []
+  likedUsers: [],
+  loading: false,
+  error: null
 }
 
 const matchesSlice = createSlice({
@@ -29,6 +34,23 @@ const matchesSlice = createSlice({
         state.likedUsers.push(action.payload)
       }
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMatches.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchMatches.fulfilled, (state, action) => {
+        state.list = action.payload.list
+        state.likedUsers = action.payload.likedUsers
+        state.loading = false
+        state.error = null
+      })
+      .addCase(fetchMatches.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Unknown error'
+      })
   }
 })
 

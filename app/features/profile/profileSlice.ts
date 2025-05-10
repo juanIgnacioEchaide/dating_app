@@ -9,7 +9,7 @@ type Profile = {
   interests?: string[]
 }
 
-type ProfileState = {
+export type ProfileState = {
   data: Profile | null
   status: 'idle' | 'loading' | 'error'
 }

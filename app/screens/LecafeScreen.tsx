@@ -3,8 +3,6 @@ import { View, Text } from 'react-native'
 
 import { AppDispatch, RootState } from '../store'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
-import { fetchLecafeItems } from '../features/lecafe/lecafeThunk'
-
 
 const LecafeScreen = () => {
     const dispatch: AppDispatch = useAppDispatch()

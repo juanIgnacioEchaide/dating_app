@@ -1,4 +1,4 @@
-import { LecafeItem } from './lecafeSlice'
+import { LecafeItem } from '../store/lecafeSlice'
 
 export const fetchLecafeItemsAPI = async (userId: string): Promise<LecafeItem[]> => {
   const res = await fetch(`/api/lecafe?userId=${userId}`)

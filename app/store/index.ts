@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import lecafe from '../(features)/lecafe/store/lecafeSlice'
-import messages from '../(features)/messages/messagesSlice'
-import matches from '../(features)/matches/matchesSlice'
-import profile from '../(features)/profile/profileSlice'
-import tutorial from '../(features)/tutorial/tutorialSlice'
-import settings from '../(features)/settings/settingsSlice' 
-import swipe from '../(features)/shared/swipe/swipeSlice' 
+import lecafe from '../features/lecafe/store/lecafeSlice'
+import messages from '../features/messages/messagesSlice'
+import matches from '../features/matches/matchesSlice'
+import profile from '../features/profile/profileSlice'
+import tutorial from '../features/tutorial/tutorialSlice'
+import settings from '../features/settings/settingsSlice' 
+import swipe from '../features/shared/swipe/swipeSlice' 
 
 export const store = configureStore({
   reducer: {

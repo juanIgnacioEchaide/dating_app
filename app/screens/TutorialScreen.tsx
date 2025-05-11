@@ -3,14 +3,14 @@ import { View, Text } from 'react-native'
 
 import { AppDispatch, RootState } from '../store'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
-import { fetchSettings } from '../features/settings/settingsThunk'
+import { fetchTutorial } from '../features/tutorial/tutorialThunk'
 
-const SettingsScreen = () => {
+const TutorialScreen = () => {
     const dispatch: AppDispatch = useAppDispatch()
-    const { loading, error } = useAppSelector((state: RootState) => state.settings)
+    const { completedSteps, currentStep } = useAppSelector((state: RootState) => state.tutorial)
     const id = useAppSelector((state) => state.profile.data?.id)
 
-    return <View><Text>Settings</Text></View>
+    return <View><Text>Tutorial</Text></View>
 }
 
-export default SettingsScreen
+export default TutorialScreen

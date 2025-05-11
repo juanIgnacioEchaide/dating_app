@@ -2,14 +2,16 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 
+import SwipeScreen from './screens/SwipeScreen'; // ⬅️ Paso 1
 import LeCafe from './screens/LecafeScreen';
 import Matches from './screens/MatchesScreen';
 import Messages from './screens/MessagesScreen';
-import { Provider } from 'react-redux';
-import { store } from './store';
 import ProfileScreen from './screens/ProfileScreen';
 import TutorialScreen from './screens/TutorialScreen';
 import SettingsScreen from './screens/SettingsScreen';
+
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,6 +19,7 @@ export default function Layout() {
     return (
         <Provider store={store}>
             <Drawer.Navigator
+                initialRouteName="Lecafé" // ⬅️ Paso 2
                 screenOptions={{
                     headerTitle: 'App Cool',
                     drawerType: 'front',
@@ -51,7 +54,6 @@ export default function Layout() {
                         ),
                     }}
                 />
-
                 <Drawer.Screen
                     name="Mi Perfil"
                     component={ProfileScreen}
@@ -66,7 +68,7 @@ export default function Layout() {
                     component={TutorialScreen}
                     options={{
                         drawerIcon: ({ color, size }) => (
-                            <Ionicons name="person" size={size} color={color} />
+                            <Ionicons name="book" size={size} color={color} />
                         ),
                     }}
                 />
@@ -79,7 +81,6 @@ export default function Layout() {
                         ),
                     }}
                 />
-
             </Drawer.Navigator>
         </Provider>
     );

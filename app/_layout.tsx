@@ -2,7 +2,6 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 
-import SwipeScreen from './screens/SwipeScreen'; // ⬅️ Paso 1
 import LeCafe from './screens/LecafeScreen';
 import Matches from './screens/MatchesScreen';
 import Messages from './screens/MessagesScreen';

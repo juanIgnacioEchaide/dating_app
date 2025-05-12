@@ -15,13 +15,13 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
     setCards((prev) => prev.filter((c) => c.id !== userId));
   };
 
-  const visibleCards = cards.slice(0, 3);
+  // Tomamos las últimas 3, para que la que está más al final sea la top
+  const visibleCards = cards.slice(-3);
 
   return (
     <View style={styles.container}>
       {visibleCards.map((card, index) => {
-        const reverseIndex = visibleCards.length - 1 - index;
-        const stackOffset = reverseIndex * 10 + 40;
+        const stackOffset = index * 10;
         const isTopCard = index === visibleCards.length - 1;
 
         return (
@@ -46,5 +46,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 50,
+    marginTop: 20,
   },
 });

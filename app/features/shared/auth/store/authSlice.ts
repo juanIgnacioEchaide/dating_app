@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 export type AuthState = {
+  id: string
   token: string | null
   loading: boolean
   error: string | null
@@ -10,6 +11,7 @@ const initialState: AuthState = {
   token: 'fake-token-dev',
   loading: false,
   error: null,
+  id: 'fake-id'
 }
 
 export const loginUser = createAsyncThunk<

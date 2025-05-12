@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchMatchables } from './swipeThunk'
 
-type Matchable = {
+export type Matchable = {
   id: string
   name: string
   age: number
-  bio?: string
+  town: string
+  country: string
+  relationship: boolean
+  friendship: boolean
   photoUrl?: string
 }
 

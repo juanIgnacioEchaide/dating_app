@@ -1,4 +1,4 @@
-import { MatchesState } from "./matchesSlice"
+import { MatchesState } from "../store/matchesSlice"
 
 export const fetchMatchesAPI = async (userId: string): Promise<MatchesState> => {
   const res = await fetch(`/api/matches?userId=${userId}`)

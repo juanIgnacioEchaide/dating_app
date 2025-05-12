@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 
 import { AppDispatch, RootState } from '../store'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
-import { fetchSettings } from '../features/settings/settingsThunk'
+import { fetchSettings } from '../features/settings/store/settingsThunk'
 
 const SettingsScreen = () => {
     const dispatch: AppDispatch = useAppDispatch()

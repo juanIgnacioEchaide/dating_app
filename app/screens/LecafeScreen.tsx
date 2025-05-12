@@ -3,13 +3,19 @@ import { View, Text } from 'react-native'
 
 import { AppDispatch, RootState } from '../store'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { fetchMatchables } from '../features/shared/swipe/store/swipeThunk'
+import MatchableSwiper from '../features/shared/swipe/components/MatchablesSwiper'
 
 const LecafeScreen = () => {
     const dispatch: AppDispatch = useAppDispatch()
-    const { status, conversations } = useAppSelector((state: RootState) => state.lecafe)
-    const id = useAppSelector((state) => state.profile.data?.id)
+    const matchablesList = useAppSelector((state: RootState) => state.swipe.list)
+    const token = useAppSelector((state) => state.auth.token)
 
-    return <View><Text>Lecafe</Text></View>
+    useEffect(() => {
+        if(token)dispatch(fetchMatchables())
+    }, [])
+
+    return <View><MatchableSwiper swipeList={matchablesList} /></View>
 }
 
 export default LecafeScreen

@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 
 import { AppDispatch, RootState } from '../store'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
-import { fetchMatches } from '../features/matches/matchesThunk'
+import { fetchMatches } from '../features/matches/store/matchesThunk'
 
 const MatchesScreen = () => {
     const dispatch: AppDispatch = useAppDispatch()

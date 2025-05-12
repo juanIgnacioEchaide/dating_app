@@ -1,17 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchMatchablesAPI, postVoteMatchableAPI } from './swipeService'
+import { fetchMatchablesAPI, postVoteMatchableAPI } from '../service/swipeService'
 import { SwipeState } from './swipeSlice'
 
-export const fetchMatchables = createAsyncThunk<
-  SwipeState,
-  { id: string },
-  { rejectValue: string }
->('swipe/fetchMatchables', async ({ id }, { rejectWithValue }) => {
+export const fetchMatchables = createAsyncThunk<SwipeState>('swipe/fetchMatchables', 
+  async () => {
   try {
-    const res = await fetchMatchablesAPI(id)
+    const res = await fetchMatchablesAPI()
     return res
   } catch (err: any) {
-    return rejectWithValue(err.message || 'Unknown error')
+    return err
   }
 })
 

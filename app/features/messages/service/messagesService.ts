@@ -1,4 +1,4 @@
-import { MessagesState } from "./messagesSlice"
+import { MessagesState } from "../store/messagesSlice"
 
 
 export const fetchMessagesAPI = async (userId: string, otherUserId: string): Promise<MessagesState> => {

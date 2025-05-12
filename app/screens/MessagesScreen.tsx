@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 
 import { AppDispatch, RootState } from '../store'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
-import { fetchMessages } from '../features/messages/messagesThunk'
+import { fetchMessages } from '../features/messages/store/messagesThunk'
 
 
 const MessagesScreen = () => {

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { MatchesState } from './matchesSlice'
-import { fetchMatchesAPI } from './matchesService'
+import { fetchMatchesAPI } from '../service/matchesService'
 
 
 export const fetchMatches = createAsyncThunk<

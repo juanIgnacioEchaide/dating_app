@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchMessagesAPI } from './messagesService'
+import { fetchMessagesAPI } from '../service/messagesService'
 import { MessagesState } from './messagesSlice'
 
 

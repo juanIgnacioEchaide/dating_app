@@ -12,6 +12,7 @@ import SettingsScreen from './screens/SettingsScreen';
 
 import { Provider } from 'react-redux';
 import { store } from './store';
+import CustomDrawerContent from './features/shared/drawer/components/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,21 +20,24 @@ export default function Layout() {
     return (
         <Provider store={store}>
             <Drawer.Navigator
-                initialRouteName="Lecafé" // ⬅️ Paso 2
+                initialRouteName="Lecafé"
                 screenOptions={{
-                    headerTitle: 'App Cool',
+                    headerTitle: '',
                     drawerType: 'front',
                     drawerActiveTintColor: '#e91e63',
                     drawerLabelStyle: { fontSize: 16 },
+                    drawerStyle: { width: '100%' }
                 }}
+                drawerContent={props => <CustomDrawerContent {...props} />}
             >
                 <Drawer.Screen
                     name="Lecafé"
                     component={LeCafe}
                     options={{
                         drawerIcon: ({ color, size }) => (
-                            <Ionicons name="cafe" size={size} color={color} />
+                            <Ionicons name="cafe" size={size} color={"white"} />
                         ),
+                        drawerActiveTintColor: 'white',
                     }}
                 />
                 <Drawer.Screen
@@ -41,8 +45,8 @@ export default function Layout() {
                     component={Messages}
                     options={{
                         drawerIcon: ({ color, size }) => (
-                            <Ionicons name="chatbubbles" size={size} color={color} />
-                        ),
+                            <Ionicons name="chatbubbles" size={size} color={"white"} />
+                        ), drawerActiveTintColor: 'white',
                     }}
                 />
                 <Drawer.Screen
@@ -50,8 +54,8 @@ export default function Layout() {
                     component={Matches}
                     options={{
                         drawerIcon: ({ color, size }) => (
-                            <Ionicons name="heart" size={size} color={color} />
-                        ),
+                            <Ionicons name="heart" size={size} color={"white"} />
+                        ), drawerActiveTintColor: 'white',
                     }}
                 />
                 <Drawer.Screen
@@ -59,8 +63,8 @@ export default function Layout() {
                     component={ProfileScreen}
                     options={{
                         drawerIcon: ({ color, size }) => (
-                            <Ionicons name="person" size={size} color={color} />
-                        ),
+                            <Ionicons name="person" size={size} color={"white"} />
+                        ), drawerActiveTintColor: 'white',
                     }}
                 />
                 <Drawer.Screen
@@ -68,8 +72,8 @@ export default function Layout() {
                     component={TutorialScreen}
                     options={{
                         drawerIcon: ({ color, size }) => (
-                            <Ionicons name="book" size={size} color={color} />
-                        ),
+                            <Ionicons name="book" size={size} color={"white"} />
+                        ), drawerActiveTintColor: 'white',
                     }}
                 />
                 <Drawer.Screen
@@ -77,8 +81,8 @@ export default function Layout() {
                     component={SettingsScreen}
                     options={{
                         drawerIcon: ({ color, size }) => (
-                            <Ionicons name="settings" size={size} color={color} />
-                        ),
+                            <Ionicons name="settings" size={size} color={"white"} />
+                        ), drawerActiveTintColor: 'white',
                     }}
                 />
             </Drawer.Navigator>

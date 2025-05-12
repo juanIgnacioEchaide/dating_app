@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { LecafeItem } from '../store/lecafeSlice'
-import { fetchLecafeItemsAPI } from './lecafeService'
+import { LecafeItem } from './lecafeSlice'
+import { fetchLecafeItemsAPI } from '../service/lecafeService'
 
 
 export const fetchLecafeItems = createAsyncThunk<

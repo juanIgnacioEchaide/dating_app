@@ -1,8 +1,9 @@
-import { SwipeState } from "./swipeSlice"
+import { mockMatchables } from "../store/mock"
+import { SwipeState } from "../store/swipeSlice"
 
-export const fetchMatchablesAPI = async (userId: string): Promise<SwipeState> => {
-  const res = await fetch(`/api/swipe?userId=${userId}`)
-  if (!res.ok) throw new Error('Error fetching lecafe items')
+export const fetchMatchablesAPI = async (): Promise<SwipeState> => {
+  const res = await fetch(`/api/swipe`)
+  if (!res.ok) return {loading: false, list: mockMatchables}
   return res.json()
 }
 

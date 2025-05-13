@@ -11,19 +11,21 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
   }, [swipeList]);
 
   const handleSwipe = (liked: boolean, userId: string) => {
-    console.log(`Voto: ${liked ? 'like' : 'dislike'} a ${userId}`);
     setCards((prev) => prev.filter((c) => c.id !== userId));
   };
 
-  // Tomamos las últimas 3, para que la que está más al final sea la top
-  const visibleCards = cards.slice(-3);
+  useEffect(() => {
+    if (cards)
+      console.log(cards.map(i => i.name), cards.length)
+  }, [cards])
+
+  const visibleCards = cards.slice(0, 3);
 
   return (
     <View style={styles.container}>
       {visibleCards.map((card, index) => {
-        const stackOffset = index * 10;
-        const isTopCard = index === visibleCards.length - 1;
-
+        const stackOffset = (visibleCards.length - 1 - index) * 15;
+        const isTopCard = index === 0;
         return (
           <SwipeCard
             key={card.id}

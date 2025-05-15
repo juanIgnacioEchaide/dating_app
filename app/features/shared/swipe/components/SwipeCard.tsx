@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Animated, {
     useSharedValue,
@@ -21,9 +21,14 @@ type Props = {
     stackOffset: number;
     isTopCard: boolean;
     onSwipe: (liked: boolean, userId: string) => void;
+    selected: boolean;
+    setSelected: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe }: Props) {
+export type FilterButton = { label: string, type: string, selected: boolean, param: string, }
+export type ChoiceButton = Pick<FilterButton, 'type' | 'param'>
+
+export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe, selected, setSelected }: Props) {
     const translateX = useSharedValue(0);
     const rotate = useSharedValue(0);
 
@@ -54,6 +59,42 @@ export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe
         ],
     }));
 
+    const FILTER_BUTTONS: FilterButton[] = [
+        {
+            label: "Amistad",
+            selected: false,
+            param: '',
+            type: 'friendship'
+        },
+        {
+            label: "Citas",
+            selected: false,
+            param: '',
+            type: 'dating'
+        },
+        {
+            label: "Relación",
+            selected: false,
+            param: '',
+            type: ''
+        },
+    ]
+
+    const CHOICE_BUTTONS: ChoiceButton[] = [
+        {
+            type: 'no',
+            param: 'dislike'
+        },
+        {
+            type: 'add_to_favorites',
+            param: 'favorite',
+        },
+        {
+            type: 'yes',
+            param: 'like'
+        },
+    ]
+
     return (
         <GestureDetector gesture={isTopCard ? gesture : Gesture.Pan()}>
             <Animated.View
@@ -66,19 +107,23 @@ export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe
                     },
                 ]}
             >
-                <View style={styles.topButtons}>
-                    <FilterButton label="Amistad" selected={false} onPress={() => console.log('Pressed')} />
-                    <FilterButton label="Citas" selected={false} onPress={() => console.log('Pressed')} />
-                    <FilterButton label="Relación" selected={true} onPress={() => console.log('Pressed')} />
-                </View>
+                {isTopCard && <View style={styles.topButtons}>
+                    {FILTER_BUTTONS.map((filterButton: FilterButton, idx: number) =>
+                        <FilterButton
+                            key={filterButton.label}
+                            label={filterButton.label}
+                            selected={selected}
+                            onPress={() => setSelected(idx)} />)}
+                </View>}
+
                 <View style={styles.userInfo}>
-                <Text style={styles.name}>{user.name}, {user.age}</Text>
-                <Text style={styles.location}>{user.town}, {user.country}</Text>
+                    <Text style={styles.name}>{user.name}, {user.age}</Text>
+                    <Text style={styles.location}>{user.town}, {user.country}</Text>
                 </View>
+
                 <View style={styles.bottomButtons}>
-                    <ChoiceButton type="no" onPress={() => console.log('NO')} />
-                    <ChoiceButton type="add_to_favorites" onPress={() => console.log('FAV')} />
-                    <ChoiceButton type="yes" onPress={() => console.log('YES')} />
+                    {CHOICE_BUTTONS.map((choiceButton: ChoiceButton, idx: number) =>
+                        <ChoiceButton type={choiceButton.type} onPress={() => console.log('NO', choiceButton.type)} />)}
                 </View>
             </Animated.View>
         </GestureDetector>
@@ -90,7 +135,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: SCREEN_WIDTH * 0.9,
         height: SCREEN_HEIGHT * 0.75,
-        backgroundColor: 'white',
+        backgroundColor: 'gray',
         borderRadius: 12,
         padding: 20,
         shadowColor: '#000',
@@ -99,7 +144,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 5,
     },
-    userInfo:{
+    userInfo: {
         marginLeft: 10,
         bottom: -200,
     },
@@ -108,6 +153,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     bottomButtons: {
+        gap: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         bottom: -250,
@@ -116,8 +162,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 30,
         marginBottom: 6,
+        color: 'white',
     },
     location: {
         fontSize: 20,
+        color: 'white',
     }
 });

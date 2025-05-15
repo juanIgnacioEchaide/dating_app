@@ -8,7 +8,7 @@ export default function DrawerHeader() {
                 source={{ uri: 'https://i.pravatar.cc/150?img=3' }}
                 style={styles.avatar}
             />
-            <Text style={styles.name}>Juan Pérez</Text>
+            <Text style={styles?.name}>Juan Pérez</Text>
             <Text style={styles.location}>📍 Buenos Aires, AR</Text>
         </View>
     );

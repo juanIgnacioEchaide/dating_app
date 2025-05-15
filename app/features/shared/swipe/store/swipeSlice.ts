@@ -9,6 +9,7 @@ export type Matchable = {
   country: string
   relationship: boolean
   friendship: boolean
+  dating: boolean
   photoUrl?: string
 }
 

@@ -1,4 +1,3 @@
-// FilterButton.tsx
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ViewStyle, TextStyle } from 'react-native';
 
@@ -31,9 +30,9 @@ const styles = StyleSheet.create<{
     margin: 10,
   },
   circle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 90 ,
+    height: 90,
+    borderRadius: 50,
     backgroundColor: 'rgba(255,255,255,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -42,13 +41,13 @@ const styles = StyleSheet.create<{
     opacity: 1,
     borderWidth: 4,
     borderColor: '#ff7bac', // Color rosado del borde
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
   },
   iconPlaceholder: {
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
     backgroundColor: '#ccc',
-    borderRadius: 20,
+    borderRadius: 50,
   },
   label: {
     marginTop: 8,

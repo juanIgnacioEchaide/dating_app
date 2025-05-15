@@ -5,11 +5,11 @@ import { Ionicons } from '@expo/vector-icons';
 type ChoiceType = 'yes' | 'no' | 'add_to_favorites';
 
 interface ChoiceButtonProps {
-    type: ChoiceType;
+    type: string;
     onPress?: () => void;
 }
 
-const iconMap: Record<ChoiceType, { name: string; backgroundColor: string; iconColor: string }> = {
+const iconMap: Record<string, { name: string; backgroundColor: string; iconColor: string }> = {
     yes: {
         name: 'checkmark',
         backgroundColor: '#FFB6D9',

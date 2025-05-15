@@ -25,7 +25,7 @@ export default function Layout() {
                     screenOptions={{
                         headerTitle: '',
                         drawerType: 'front',
-                        drawerActiveTintColor: '#e91e63',
+                        drawerActiveTintColor: '#FFB6D9',
                         drawerLabelStyle: { fontSize: 16 },
                         drawerStyle: { width: '100%' }
                     }}

@@ -16,24 +16,25 @@ export default function CustomDrawerContent(props: any) {
     return (
         <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1, backgroundColor: '#FFB6D9' }}>
             <View>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.closeIcon}>
+                <TouchableOpacity onPress={() => props.navigation.closeDrawer()} style={styles.closeIcon}>
                     <Ionicons name="close" size={28} color="#fff" />
                 </TouchableOpacity>
             </View>
-            <View style={styles.headerContainer}>
 
+            <View style={styles.headerContainer}>
                 <View style={styles.userInfo}>
                     <Image
                         source={{ uri: 'https://i.pravatar.cc/100' }}
                         style={styles.avatar}
                     />
                 </View>
-
             </View>
+
             <View style={styles.userDetails}>
                 <Text style={styles.username}>Nombre del Usuario</Text>
                 <Text style={styles.location}>Ubicación del Usuario</Text>
             </View>
+
             <View style={{ flex: 1 }}>
                 <DrawerItemList {...props} />
             </View>

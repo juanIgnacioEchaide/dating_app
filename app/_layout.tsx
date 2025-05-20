@@ -23,10 +23,14 @@ export default function Layout() {
                 <Drawer.Navigator
                     initialRouteName="Lecafé"
                     screenOptions={{
+                        headerTransparent: true,
                         headerTitle: '',
+                        headerTintColor: 'white',
+                        headerShadowVisible: false,
+                        headerStyle: { elevation: 0 },
                         drawerType: 'front',
                         drawerActiveTintColor: '#FFB6D9',
-                        drawerLabelStyle: { fontSize: 16 },
+                        drawerLabelStyle: { fontSize: 16, color: '#fff' },
                         drawerStyle: { width: '100%' }
                     }}
                     drawerContent={props => <CustomDrawerContent {...props} />}

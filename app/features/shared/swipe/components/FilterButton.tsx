@@ -28,20 +28,21 @@ const styles = StyleSheet.create<{
   container: {
     alignItems: 'center',
     margin: 10,
+
   },
   circle: {
-    width: 90 ,
+    width: 90,
     height: 90,
-    borderRadius: 50,
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
   },
   circleSelected: {
     opacity: 1,
     borderWidth: 4,
-    borderColor: '#ff7bac', // Color rosado del borde
+    borderColor: '#fff',
     backgroundColor: 'transparent',
+    borderRadius: 50,
   },
   iconPlaceholder: {
     width: 60,

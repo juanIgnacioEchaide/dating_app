@@ -7,8 +7,6 @@ import { Ionicons } from "@expo/vector-icons";
 
 
 export default function CustomDrawerContent(props: any) {
-    const navigation = useNavigation();
-
     const handleLogout = () => {
         console.log('Cerrar sesión');
     };
@@ -48,6 +46,7 @@ export default function CustomDrawerContent(props: any) {
 }
 const styles = StyleSheet.create({
     headerContainer: {
+        marginLeft: 0,
         paddingVertical: 20,
         paddingHorizontal: 16,
         flexDirection: 'row',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Animated, {
     useSharedValue,
@@ -22,6 +22,7 @@ type Props = {
     isTopCard: boolean;
     onSwipe: (liked: boolean, userId: string) => void;
     selected: boolean;
+    seriesSelected: number;
     setSelected: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -98,6 +99,7 @@ export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe
     return (
         <GestureDetector gesture={isTopCard ? gesture : Gesture.Pan()}>
             <Animated.View
+                key={user.id}
                 style={[
                     styles.card,
                     animatedStyle,
@@ -107,23 +109,31 @@ export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe
                     },
                 ]}
             >
-                {isTopCard && <View style={styles.topButtons}>
-                    {FILTER_BUTTONS.map((filterButton: FilterButton, idx: number) =>
-                        <FilterButton
-                            key={filterButton.label}
-                            label={filterButton.label}
-                            selected={selected}
-                            onPress={() => setSelected(idx)} />)}
-                </View>}
-
-                <View style={styles.userInfo}>
-                    <Text style={styles.name}>{user.name}, {user.age}</Text>
-                    <Text style={styles.location}>{user.town}, {user.country}</Text>
+                <View style={{height: '12%'}}>
+                    {isTopCard &&
+                        <View style={styles.topButtons}>
+                            {FILTER_BUTTONS.map((filterButton: FilterButton, idx: number) =>
+                                <FilterButton
+                                    key={filterButton.label}
+                                    label={filterButton.label}
+                                    selected={selected}
+                                    onPress={() => setSelected(idx)} />)}
+                        </View>}
                 </View>
+                <View>
+                    <View style={styles.userInfo}>
+                        <Text style={styles.name}>{user.name}, {user.age}</Text>
+                        <Text style={styles.location}>{user.town}, {user.country}</Text>
+                    </View>
 
-                <View style={styles.bottomButtons}>
-                    {CHOICE_BUTTONS.map((choiceButton: ChoiceButton, idx: number) =>
-                        <ChoiceButton type={choiceButton.type} onPress={() => console.log('NO', choiceButton.type)} />)}
+                    <View style={styles.bottomButtons}>
+                        {CHOICE_BUTTONS.map((choiceButton: ChoiceButton, idx: number) =>
+                            <ChoiceButton 
+                                key={idx}
+                                type={choiceButton.type}
+                                onPress={() => console.log('NO', choiceButton.type)}
+                            />)}
+                    </View>
                 </View>
             </Animated.View>
         </GestureDetector>
@@ -157,6 +167,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         bottom: -250,
+        marginBottom: 0,
     },
     name: {
         fontWeight: 'bold',

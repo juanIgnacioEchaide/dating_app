@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import SwipeCard from "./SwipeCard";
 import { Matchable } from "../store/swipeSlice";
@@ -8,6 +8,7 @@ import { voteMatchable } from "../store/swipeThunk";
 import { useAppSelector } from "@/app/store/hooks";
 import FilterButton from './FilterButton';
 import ChoiceButton from './ChoiceButton';
+import TopFilterButtons from "./TopFilterButtons";
 
 const FILTER_BUTTONS = [
   { label: "Amistad", type: "friendship", param: "" },
@@ -26,6 +27,7 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState(0);
   const [selectedFilterIndex, setSelectedFilterIndex] = useState(0);
+  const [filterSelected, setFilterSelected] = useState<number>(0)
 
   const dispatch: AppDispatch = useDispatch();
   const id = useAppSelector((state) => state.auth.id);
@@ -49,6 +51,27 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
     [handleVoting]
   );
 
+  const friendshipList = useMemo(() => {
+    return swipeList.filter(i => i.friendship)
+  }, []);
+
+  const datingList = useMemo(() => {
+    return swipeList.filter(i => i.dating)
+  }, []);
+
+  const relationshipList = useMemo(() => {
+    return swipeList.filter(i => i.relationship)
+  }, []);
+
+  const selectedSwipeList = useMemo(() => {
+    const matchOptions = [
+      { id: 0, type: 'friendship', value: friendshipList },
+      { id: 1, type: 'dating', value: datingList },
+      { id: 2, type: 'relationship', value: relationshipList },
+    ]
+    return matchOptions[filterSelected].value
+  }, [filterSelected, friendshipList, datingList, relationshipList])
+
   const visibleCards = cards?.slice(0, 3);
 
   if (error) return <View><Text>UPS</Text></View>;
@@ -67,7 +90,10 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
           />
         ))}
       </View>
-
+      <TopFilterButtons
+        isTopCard={false}
+        selected={selected}
+        setSelected={setSelected} />
       {/* Cards */}
       {visibleCards.map((card, index) => {
         const stackOffset = (visibleCards.length - 1 - index) * 15;
@@ -109,7 +135,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 50,
-    marginTop: 20,
+    marginTop: 90,
   },
   topButtons: {
     flexDirection: "row",

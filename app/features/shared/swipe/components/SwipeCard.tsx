@@ -60,26 +60,6 @@ export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe
         ],
     }));
 
-    const FILTER_BUTTONS: FilterButton[] = [
-        {
-            label: "Amistad",
-            selected: false,
-            param: '',
-            type: 'friendship'
-        },
-        {
-            label: "Citas",
-            selected: false,
-            param: '',
-            type: 'dating'
-        },
-        {
-            label: "Relación",
-            selected: false,
-            param: '',
-            type: ''
-        },
-    ]
 
     const CHOICE_BUTTONS: ChoiceButton[] = [
         {
@@ -109,17 +89,7 @@ export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe
                     },
                 ]}
             >
-                <View style={{height: '12%'}}>
-                    {isTopCard &&
-                        <View style={styles.topButtons}>
-                            {FILTER_BUTTONS.map((filterButton: FilterButton, idx: number) =>
-                                <FilterButton
-                                    key={filterButton.label}
-                                    label={filterButton.label}
-                                    selected={selected}
-                                    onPress={() => setSelected(idx)} />)}
-                        </View>}
-                </View>
+
                 <View>
                     <View style={styles.userInfo}>
                         <Text style={styles.name}>{user.name}, {user.age}</Text>
@@ -144,7 +114,7 @@ const styles = StyleSheet.create({
     card: {
         position: 'absolute',
         width: SCREEN_WIDTH * 0.9,
-        height: SCREEN_HEIGHT * 0.75,
+        height: 700,
         backgroundColor: 'gray',
         borderRadius: 12,
         padding: 20,
@@ -156,7 +126,7 @@ const styles = StyleSheet.create({
     },
     userInfo: {
         marginLeft: 10,
-        bottom: -200,
+        top: 400,
     },
     topButtons: {
         flexDirection: 'row',
@@ -166,7 +136,7 @@ const styles = StyleSheet.create({
         gap: 10,
         flexDirection: 'row',
         justifyContent: 'center',
-        bottom: -250,
+        top: 450,
         marginBottom: 0,
     },
     name: {

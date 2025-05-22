@@ -13,7 +13,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({ label, selected, onPress })
       <View style={[styles.circle, selected && styles.circleSelected]}>
         <View style={styles.iconPlaceholder} />
       </View>
-      {selected && <Text style={styles.label}>{label}</Text>}
+      <Text style={styles.label}>{label}</Text>
     </TouchableOpacity>
   );
 };
@@ -28,7 +28,6 @@ const styles = StyleSheet.create<{
   container: {
     alignItems: 'center',
     margin: 10,
-
   },
   circle: {
     width: 90,

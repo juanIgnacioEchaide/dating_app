@@ -11,9 +11,10 @@ const FilterButton: React.FC<FilterButtonProps> = ({ label, selected, onPress })
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={styles.container}>
       <View style={[styles.circle, selected && styles.circleSelected]}>
-        <View style={styles.iconPlaceholder} />
+        <View style={styles.iconPlaceholder} >
+          {selected && <Text style={styles.label}>{label}</Text>}
+        </View>
       </View>
-      <Text style={styles.label}>{label}</Text>
     </TouchableOpacity>
   );
 };
@@ -27,6 +28,7 @@ const styles = StyleSheet.create<{
 }>({
   container: {
     alignItems: 'center',
+    justifyContent: 'center',
     margin: 10,
   },
   circle: {
@@ -50,10 +52,12 @@ const styles = StyleSheet.create<{
     borderRadius: 50,
   },
   label: {
-    marginTop: 8,
+    marginTop: 20,
     fontWeight: 'bold',
+    justifyContent: 'center',
     color: 'white',
     fontSize: 16,
+    width: 100,
   },
 });
 

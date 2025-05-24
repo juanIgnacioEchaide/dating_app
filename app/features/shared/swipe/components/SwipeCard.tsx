@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Animated, {
     useSharedValue,
@@ -12,7 +12,6 @@ import FilterButton from './FilterButton';
 import ChoiceButton from './ChoiceButton';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.3;
 
 type Props = {
@@ -24,12 +23,22 @@ type Props = {
     selected: boolean;
     seriesSelected: number;
     setSelected: React.Dispatch<React.SetStateAction<number>>;
+    showFilters: boolean;
+    setShowFilters: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type FilterButton = { label: string, type: string, selected: boolean, param: string, }
 export type ChoiceButton = Pick<FilterButton, 'type' | 'param'>
 
-export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe, selected, setSelected }: Props) {
+export default function SwipeCard({
+    user,
+    stackOffset,
+    isTopCard,
+    index,
+    onSwipe,
+    showFilters,
+    setShowFilters,
+}: Props) {
     const translateX = useSharedValue(0);
     const rotate = useSharedValue(0);
 
@@ -76,6 +85,7 @@ export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe
         },
     ]
 
+    
     return (
         <GestureDetector gesture={isTopCard ? gesture : Gesture.Pan()}>
             <Animated.View
@@ -89,16 +99,16 @@ export default function SwipeCard({ user, stackOffset, isTopCard, index, onSwipe
                     },
                 ]}
             >
-
                 <View>
+                    {/* UserCardInfo */}
                     <View style={styles.userInfo}>
                         <Text style={styles.name}>{user.name}, {user.age}</Text>
                         <Text style={styles.location}>{user.town}, {user.country}</Text>
                     </View>
-
+                    {/* BottomChoiceButtons */}
                     <View style={styles.bottomButtons}>
                         {CHOICE_BUTTONS.map((choiceButton: ChoiceButton, idx: number) =>
-                            <ChoiceButton 
+                            <ChoiceButton
                                 key={idx}
                                 type={choiceButton.type}
                                 onPress={() => console.log('NO', choiceButton.type)}

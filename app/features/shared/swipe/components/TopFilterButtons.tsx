@@ -31,20 +31,20 @@ export default function TopFilterButtons({ isTopCard, selected, setSelected }: {
     ]
 
     return <View style={styles.topButtons}>
-        {FILTER_BUTTONS.map((filterButton: FilterButton, idx: number) =>
-            <FilterButton
-                key={filterButton.label}
-                label={filterButton.label}
-                selected={selected === idx}
-                onPress={() => setSelected(idx)} />)}
-
-    </View>
+            {FILTER_BUTTONS.map((filterButton: FilterButton, idx: number) =>
+                <FilterButton
+                    key={filterButton.label}
+                    label={filterButton.label}
+                    selected={selected === idx}
+                    onPress={() => setSelected(idx)} />)}
+            </View>
 }
 
 const styles = StyleSheet.create({
     topButtons: {
         flexDirection: "row",
         justifyContent: "center",
+        top: 50,
         zIndex: 100,
     },
 });

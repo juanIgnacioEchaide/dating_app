@@ -25,9 +25,8 @@ const CHOICE_BUTTONS = [
 export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] }) {
   const [cards, setCards] = useState<Matchable[]>([]);
   const [error, setError] = useState(false);
-  const [selected, setSelected] = useState(0);
-  const [selectedFilterIndex, setSelectedFilterIndex] = useState(0);
-  const [filterSelected, setFilterSelected] = useState<number>(0)
+  const [selected, setSelected] = useState<number>(0);
+  const [showFilters, setShowFilters] = useState<boolean>(true)
 
   const dispatch: AppDispatch = useDispatch();
   const id = useAppSelector((state) => state.auth.id);
@@ -47,9 +46,27 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
     (like: boolean, otherUserId: string) => {
       setCards((prev) => prev.filter((c) => c.id !== otherUserId));
       handleVoting(otherUserId, like);
+      setShowFilters(false)
     },
     [handleVoting]
   );
+
+  const handleChoice = useCallback(
+    (type: 'like' | 'dislike',
+      params: {
+        otherId: string,
+        id: string,
+        like: boolean
+      }) => {
+      if (type === 'like') {
+        console.log('like if', { params })
+      }
+      if (type === 'dislike') {
+        console.log('dislike if', { params })
+      }
+      console.log('dislike else', { params })
+
+    }, []);
 
   const friendshipList = useMemo(() => {
     return swipeList.filter(i => i.friendship)
@@ -69,8 +86,8 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
       { id: 1, type: 'dating', value: datingList },
       { id: 2, type: 'relationship', value: relationshipList },
     ]
-    return matchOptions[filterSelected].value
-  }, [filterSelected, friendshipList, datingList, relationshipList])
+    return matchOptions[selected].value
+  }, [selected, friendshipList, datingList, relationshipList])
 
   const visibleCards = cards?.slice(0, 3);
 
@@ -79,22 +96,11 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
 
   return (
     <View style={styles.container}>
-      {/* Filter Buttons */}
-      <View style={styles.topButtons}>
-        {FILTER_BUTTONS.map((btn, idx) => (
-          <FilterButton
-            key={btn.label}
-            label={btn.label}
-            selected={selectedFilterIndex === idx}
-            onPress={() => setSelectedFilterIndex(idx)}
-          />
-        ))}
-      </View>
       <TopFilterButtons
         isTopCard={false}
         selected={selected}
         setSelected={setSelected} />
-      {/* Cards */}
+
       {visibleCards.map((card, index) => {
         const stackOffset = (visibleCards.length - 1 - index) * 15;
         const isTopCard = index === 0;
@@ -110,20 +116,11 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
             selected={index === selected}
             setSelected={setSelected}
             seriesSelected={0}
+            showFilters={showFilters}
+            setShowFilters={setShowFilters}
           />
         );
       })}
-
-      {/* Choice Buttons */}
-      <View style={styles.bottomButtons}>
-        {CHOICE_BUTTONS.map((btn, idx) => (
-          <ChoiceButton
-            key={idx}
-            type={btn.type}
-            onPress={() => console.log("CHOOSE", btn.param)}
-          />
-        ))}
-      </View>
     </View>
   );
 }

@@ -68,27 +68,6 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
 
     }, []);
 
-  const friendshipList = useMemo(() => {
-    return swipeList.filter(i => i.friendship)
-  }, []);
-
-  const datingList = useMemo(() => {
-    return swipeList.filter(i => i.dating)
-  }, []);
-
-  const relationshipList = useMemo(() => {
-    return swipeList.filter(i => i.relationship)
-  }, []);
-
-  const selectedSwipeList = useMemo(() => {
-    const matchOptions = [
-      { id: 0, type: 'friendship', value: friendshipList },
-      { id: 1, type: 'dating', value: datingList },
-      { id: 2, type: 'relationship', value: relationshipList },
-    ]
-    return matchOptions[selected].value
-  }, [selected, friendshipList, datingList, relationshipList])
-
   const visibleCards = cards?.slice(0, 3);
 
   if (error) return <View><Text>UPS</Text></View>;

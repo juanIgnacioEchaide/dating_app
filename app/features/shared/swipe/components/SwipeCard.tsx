@@ -41,7 +41,8 @@ export default function SwipeCard({
     index,
     handleDislike,
     handleLike,
-    handleFavorite
+    handleFavorite,
+
 }: Props) {
     const translateX = useSharedValue(0);
     const rotate = useSharedValue(0);
@@ -96,7 +97,9 @@ export default function SwipeCard({
                     <BottomChoiceButtons
                         likeCallback={handleLike}
                         dislikeCallback={handleDislike}
-                        favoritesCallback={handleFavorite} />
+                        favoritesCallback={handleFavorite}
+                        otherUserId={user.id}
+                    />
                 </View>
             </Animated.View>
         </GestureDetector>

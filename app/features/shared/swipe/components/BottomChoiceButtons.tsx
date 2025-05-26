@@ -1,33 +1,35 @@
-import React, { useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import ChoiceButton from './ChoiceButton';
 export type FilterButton = { label: string, type: string, selected: boolean, param: string, }
-export type ChoiceButton = Pick<FilterButton, 'type' | 'param'> & { callback: void }
+export type ChoiceButton = Pick<FilterButton, 'type' | 'param'> & { callback: (id: string) => void }
 
 export default function BottomChoiceButtons({
     likeCallback,
     dislikeCallback,
-    favoritesCallback
+    favoritesCallback,
+    otherUserId
 }: {
     likeCallback: any
     dislikeCallback: any
     favoritesCallback: any
+    otherUserId: string
 }) {
     const CHOICE_BUTTONS: ChoiceButton[] = [
         {
             type: 'no',
             param: 'dislike',
-            callback: dislikeCallback
+            callback: (id: string) => dislikeCallback(id)
         },
         {
             type: 'add_to_favorites',
             param: 'favorite',
-            callback: favoritesCallback
+            callback: (id: string) => favoritesCallback(id)
         },
         {
             type: 'yes',
             param: 'like',
-            callback: likeCallback
+            callback: (id: string) => likeCallback(id)
         },
     ]
     return <View style={styles.bottomButtons}>
@@ -35,7 +37,7 @@ export default function BottomChoiceButtons({
             <ChoiceButton
                 key={idx}
                 type={choiceButton.type}
-                onPress={() => console.log('NO', choiceButton.type)}
+                onPress={() => choiceButton.callback(otherUserId)}
             />)}
     </View>
 }

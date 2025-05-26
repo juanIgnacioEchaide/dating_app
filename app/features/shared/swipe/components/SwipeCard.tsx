@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Animated, {
     useSharedValue,
@@ -10,6 +10,8 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { Matchable } from '../store/swipeSlice';
 import FilterButton from './FilterButton';
 import ChoiceButton from './ChoiceButton';
+import BottomChoiceButtons from './BottomChoiceButtons';
+import UserCardInfo from './UserCardInfo';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.3;
@@ -19,12 +21,14 @@ type Props = {
     index: number;
     stackOffset: number;
     isTopCard: boolean;
-    onSwipe: (liked: boolean, userId: string) => void;
     selected: boolean;
     seriesSelected: number;
     setSelected: React.Dispatch<React.SetStateAction<number>>;
     showFilters: boolean;
     setShowFilters: React.Dispatch<React.SetStateAction<boolean>>;
+    handleLike: (id: string) => void,
+    handleDislike: (id: string) => void,
+    handleFavorite: (id: string) => void,
 };
 
 export type FilterButton = { label: string, type: string, selected: boolean, param: string, }
@@ -35,9 +39,9 @@ export default function SwipeCard({
     stackOffset,
     isTopCard,
     index,
-    onSwipe,
-    showFilters,
-    setShowFilters,
+    handleDislike,
+    handleLike,
+    handleFavorite
 }: Props) {
     const translateX = useSharedValue(0);
     const rotate = useSharedValue(0);
@@ -50,11 +54,11 @@ export default function SwipeCard({
         .onEnd(() => {
             if (translateX.value > SWIPE_THRESHOLD) {
                 translateX.value = withSpring(SCREEN_WIDTH, {}, () => {
-                    runOnJS(onSwipe)(true, user.id);
+                    runOnJS(handleLike)(user.id);
                 });
             } else if (translateX.value < -SWIPE_THRESHOLD) {
                 translateX.value = withSpring(-SCREEN_WIDTH, {}, () => {
-                    runOnJS(onSwipe)(false, user.id);
+                    runOnJS(handleDislike)(user.id);
                 });
             } else {
                 translateX.value = withSpring(0);
@@ -69,23 +73,6 @@ export default function SwipeCard({
         ],
     }));
 
-
-    const CHOICE_BUTTONS: ChoiceButton[] = [
-        {
-            type: 'no',
-            param: 'dislike'
-        },
-        {
-            type: 'add_to_favorites',
-            param: 'favorite',
-        },
-        {
-            type: 'yes',
-            param: 'like'
-        },
-    ]
-
-    
     return (
         <GestureDetector gesture={isTopCard ? gesture : Gesture.Pan()}>
             <Animated.View
@@ -100,20 +87,16 @@ export default function SwipeCard({
                 ]}
             >
                 <View>
-                    {/* UserCardInfo */}
-                    <View style={styles.userInfo}>
-                        <Text style={styles.name}>{user.name}, {user.age}</Text>
-                        <Text style={styles.location}>{user.town}, {user.country}</Text>
-                    </View>
-                    {/* BottomChoiceButtons */}
-                    <View style={styles.bottomButtons}>
-                        {CHOICE_BUTTONS.map((choiceButton: ChoiceButton, idx: number) =>
-                            <ChoiceButton
-                                key={idx}
-                                type={choiceButton.type}
-                                onPress={() => console.log('NO', choiceButton.type)}
-                            />)}
-                    </View>
+                    <UserCardInfo
+                        name={user.name}
+                        town={user.town}
+                        age={user.age}
+                        country={user.country}
+                    />
+                    <BottomChoiceButtons
+                        likeCallback={handleLike}
+                        dislikeCallback={handleDislike}
+                        favoritesCallback={handleFavorite} />
                 </View>
             </Animated.View>
         </GestureDetector>
@@ -134,29 +117,4 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 5,
     },
-    userInfo: {
-        marginLeft: 10,
-        top: 400,
-    },
-    topButtons: {
-        flexDirection: 'row',
-        justifyContent: 'center'
-    },
-    bottomButtons: {
-        gap: 10,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        top: 450,
-        marginBottom: 0,
-    },
-    name: {
-        fontWeight: 'bold',
-        fontSize: 30,
-        marginBottom: 6,
-        color: 'white',
-    },
-    location: {
-        fontSize: 20,
-        color: 'white',
-    }
 });

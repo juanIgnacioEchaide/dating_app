@@ -4,23 +4,8 @@ import SwipeCard from "./SwipeCard";
 import { Matchable } from "../store/swipeSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/store";
-import { voteMatchable } from "../store/swipeThunk";
 import { useAppSelector } from "@/app/store/hooks";
-import FilterButton from './FilterButton';
-import ChoiceButton from './ChoiceButton';
 import TopFilterButtons from "./TopFilterButtons";
-
-const FILTER_BUTTONS = [
-  { label: "Amistad", type: "friendship", param: "" },
-  { label: "Citas", type: "dating", param: "" },
-  { label: "Relación", type: "relationship", param: "" },
-];
-
-const CHOICE_BUTTONS = [
-  { type: "no", param: "dislike" },
-  { type: "add_to_favorites", param: "favorite" },
-  { type: "yes", param: "like" },
-];
 
 export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] }) {
   const [cards, setCards] = useState<Matchable[]>([]);
@@ -35,38 +20,29 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
     setCards(swipeList);
   }, [swipeList]);
 
-  const handleVoting = useCallback(
-    (otherUserId: string, like: boolean) => {
-      dispatch(voteMatchable({ id, like, otherUserId })).catch(() => setError(true));
-    },
-    [dispatch, id]
-  );
+  const handleLike = useCallback((id: string) => {
+    try {
+      console.log(id)
+    } catch (err) {
+      console.log(err)
+    }
+  }, [])
 
-  const handleSwipe = useCallback(
-    (like: boolean, otherUserId: string) => {
-      setCards((prev) => prev.filter((c) => c.id !== otherUserId));
-      handleVoting(otherUserId, like);
-      setShowFilters(false)
-    },
-    [handleVoting]
-  );
+  const handleDislike = useCallback((id: string) => {
+    try {
+      console.log(id)
+    } catch (err) {
+      console.log(err)
+    }
+  }, [])
 
-  const handleChoice = useCallback(
-    (type: 'like' | 'dislike',
-      params: {
-        otherId: string,
-        id: string,
-        like: boolean
-      }) => {
-      if (type === 'like') {
-        console.log('like if', { params })
-      }
-      if (type === 'dislike') {
-        console.log('dislike if', { params })
-      }
-      console.log('dislike else', { params })
-
-    }, []);
+  const handleFavorite = useCallback((id: string) => {
+    try {
+      console.log(id)
+    } catch (err) {
+      console.log(err)
+    }
+  }, [])
 
   const visibleCards = cards?.slice(0, 3);
 
@@ -91,12 +67,14 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
             index={index}
             stackOffset={stackOffset}
             isTopCard={isTopCard}
-            onSwipe={handleSwipe}
             selected={index === selected}
             setSelected={setSelected}
             seriesSelected={0}
             showFilters={showFilters}
             setShowFilters={setShowFilters}
+            handleLike={handleLike}
+            handleDislike={handleDislike}
+            handleFavorite={handleFavorite}
           />
         );
       })}
@@ -112,16 +90,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 50,
     marginTop: 90,
-  },
-  topButtons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 16,
-  },
-  bottomButtons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 30,
-    gap: 12,
   },
 });

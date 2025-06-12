@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import React, { use } from 'react';
+import { Dimensions, StyleSheet } from 'react-native';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -8,10 +8,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { Matchable } from '../store/swipeSlice';
-import FilterButton from './FilterButton';
-import ChoiceButton from './ChoiceButton';
 import BottomChoiceButtons from './BottomChoiceButtons';
 import UserCardInfo from './UserCardInfo';
+import { SharedValue } from 'react-native-reanimated';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.3;
@@ -26,13 +25,11 @@ type Props = {
     setSelected: React.Dispatch<React.SetStateAction<number>>;
     showFilters: boolean;
     setShowFilters: React.Dispatch<React.SetStateAction<boolean>>;
-    handleLike: (id: string) => void,
-    handleDislike: (id: string) => void,
-    handleFavorite: (id: string) => void,
+    handleLike: (id: string) => void;
+    handleDislike: (id: string) => void;
+    handleFavorite: (id: string) => void;
+    isSwiping: SharedValue<boolean>;
 };
-
-export type FilterButton = { label: string, type: string, selected: boolean, param: string, }
-export type ChoiceButton = Pick<FilterButton, 'type' | 'param'>
 
 export default function SwipeCard({
     user,
@@ -42,12 +39,15 @@ export default function SwipeCard({
     handleDislike,
     handleLike,
     handleFavorite,
-
+    isSwiping,
 }: Props) {
     const translateX = useSharedValue(0);
     const rotate = useSharedValue(0);
 
     const gesture = Gesture.Pan()
+        .onBegin(() => {
+            isSwiping.value = true;
+        })
         .onUpdate((event) => {
             translateX.value = event.translationX;
             rotate.value = (event.translationX / SCREEN_WIDTH) * 20;
@@ -61,6 +61,7 @@ export default function SwipeCard({
                     overshootClamping: true,
                 }, () => {
                     runOnJS(handleLike)(user.id);
+                    isSwiping.value = false;
                 });
             } else if (translateX.value < -SWIPE_THRESHOLD) {
                 translateX.value = withSpring(-SCREEN_WIDTH, {
@@ -70,10 +71,12 @@ export default function SwipeCard({
                     overshootClamping: true,
                 }, () => {
                     runOnJS(handleDislike)(user.id);
+                    isSwiping.value = false;
                 });
             } else {
                 translateX.value = withSpring(0);
                 rotate.value = withSpring(0);
+                isSwiping.value = false;
             }
         });
 
@@ -87,7 +90,6 @@ export default function SwipeCard({
     return (
         <GestureDetector gesture={isTopCard ? gesture : Gesture.Pan()}>
             <Animated.View
-                key={user.id}
                 style={[
                     styles.card,
                     animatedStyle,
@@ -104,9 +106,13 @@ export default function SwipeCard({
                     country={user.country}
                 />
                 <BottomChoiceButtons
-                    likeCallback={handleLike}
-                    dislikeCallback={handleDislike}
-                    favoritesCallback={handleFavorite}
+                    likeCallback={() => {
+                        isSwiping.value = false;
+                        handleLike(user.id)
+                    }
+                    }
+                    dislikeCallback={() => { isSwiping.value = false; handleDislike(user.id) }}
+                    favoritesCallback={() => { isSwiping.value = false; handleFavorite(user.id) }}
                     otherUserId={user.id}
                 />
             </Animated.View>

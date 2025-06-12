@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import SwipeCard from "./SwipeCard";
 import { Matchable } from "../store/swipeSlice";
@@ -6,38 +6,56 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/store";
 import { useAppSelector } from "@/app/store/hooks";
 import TopFilterButtons from "./TopFilterButtons";
+import { useSharedValue, useDerivedValue, runOnJS } from "react-native-reanimated";
+import SwipeFeedback from "@/app/components/SwipeFeedback";
 
 export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] }) {
   const [cards, setCards] = useState<Matchable[]>([]);
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState<number>(0);
-  const [showFilters, setShowFilters] = useState<boolean>(true)
-
-  const dispatch: AppDispatch = useDispatch();
+  const [isUserSwiping, setIsUserSwiping] = useState(false);
+  const [feedback, setFeedback] = useState<null | "like" | "dislike">(null);
+  const [pendingCardId, setPendingCardId] = useState<string | null>(null);
+  const [noMoreVotes, setNoMoreVotes] = useState<boolean>(false)
   const id = useAppSelector((state) => state.auth.id);
+
+  const isSwiping = useSharedValue(false);
 
   useEffect(() => {
     setCards(swipeList);
   }, [swipeList]);
 
+  useDerivedValue(() => {
+    runOnJS(setIsUserSwiping)(isSwiping.value);
+  }, [isSwiping]);
+
   const handleLike = useCallback((swipedId: string) => {
     console.log("Liked:", swipedId);
+    setFeedback('like')
     setCards(prevCards => prevCards.filter(card => card.id !== swipedId));
   }, []);
 
   const handleDislike = useCallback((swipedId: string) => {
     console.log("Disliked:", swipedId);
+    setFeedback('dislike')
     setCards(prevCards => prevCards.filter(card => card.id !== swipedId));
   }, []);
 
-
   const handleFavorite = useCallback((id: string) => {
     try {
-      console.log(id)
+      console.log(id);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }, [])
+  }, []);
+
+  const handleFeedbackDone = () => {
+    if (pendingCardId) {
+      setCards(prev => prev.filter(c => c.id !== pendingCardId));
+      setPendingCardId(null);
+    }
+    setFeedback(null);
+  };
 
   const visibleCards = cards?.slice(0, 3);
 
@@ -46,10 +64,19 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
 
   return (
     <View style={styles.container}>
-      <TopFilterButtons
-        isTopCard={false}
-        selected={selected}
-        setSelected={setSelected} />
+      {!isUserSwiping && (
+        <TopFilterButtons
+          isTopCard={false}
+          selected={selected}
+          setSelected={setSelected}
+        />
+      )}
+      <SwipeFeedback
+        visible={feedback !== null}
+        type={feedback || "like"}
+        onDone={handleFeedbackDone}
+      />
+
 
       {visibleCards.map((card, index) => {
         const stackOffset = (visibleCards.length - 1 - index) * 15;
@@ -65,11 +92,12 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
             selected={index === selected}
             setSelected={setSelected}
             seriesSelected={0}
-            showFilters={showFilters}
-            setShowFilters={setShowFilters}
+            showFilters={!isUserSwiping}
+            setShowFilters={() => { }}
             handleLike={handleLike}
             handleDislike={handleDislike}
             handleFavorite={handleFavorite}
+            isSwiping={isSwiping}
           />
         );
       })}

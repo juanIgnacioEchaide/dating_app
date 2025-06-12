@@ -32,14 +32,14 @@ export default function BottomChoiceButtons({
             callback: (id: string) => likeCallback(id)
         },
     ]
-    return <View style={styles.bottomButtons}>
+    return (<View style={styles.bottomButtons}>
         {CHOICE_BUTTONS.map((choiceButton: ChoiceButton, idx: number) =>
             <ChoiceButton
                 key={idx}
                 type={choiceButton.type}
                 onPress={() => choiceButton.callback(otherUserId)}
             />)}
-    </View>
+    </View>)
 }
 
 const styles = StyleSheet.create({

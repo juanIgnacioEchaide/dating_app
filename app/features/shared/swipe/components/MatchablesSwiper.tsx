@@ -20,21 +20,16 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
     setCards(swipeList);
   }, [swipeList]);
 
-  const handleLike = useCallback((id: string) => {
-    try {
-      console.log(id)
-    } catch (err) {
-      console.log(err)
-    }
-  }, [])
+  const handleLike = useCallback((swipedId: string) => {
+    console.log("Liked:", swipedId);
+    setCards(prevCards => prevCards.filter(card => card.id !== swipedId));
+  }, []);
 
-  const handleDislike = useCallback((id: string) => {
-    try {
-      console.log(id)
-    } catch (err) {
-      console.log(err)
-    }
-  }, [])
+  const handleDislike = useCallback((swipedId: string) => {
+    console.log("Disliked:", swipedId);
+    setCards(prevCards => prevCards.filter(card => card.id !== swipedId));
+  }, []);
+
 
   const handleFavorite = useCallback((id: string) => {
     try {

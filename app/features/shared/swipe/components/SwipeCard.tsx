@@ -54,11 +54,21 @@ export default function SwipeCard({
         })
         .onEnd(() => {
             if (translateX.value > SWIPE_THRESHOLD) {
-                translateX.value = withSpring(SCREEN_WIDTH, {}, () => {
+                translateX.value = withSpring(SCREEN_WIDTH, {
+                    damping: 12,
+                    stiffness: 400,
+                    mass: 0.2,
+                    overshootClamping: true,
+                }, () => {
                     runOnJS(handleLike)(user.id);
                 });
             } else if (translateX.value < -SWIPE_THRESHOLD) {
-                translateX.value = withSpring(-SCREEN_WIDTH, {}, () => {
+                translateX.value = withSpring(-SCREEN_WIDTH, {
+                    damping: 12,
+                    stiffness: 400,
+                    mass: 0.2,
+                    overshootClamping: true,
+                }, () => {
                     runOnJS(handleDislike)(user.id);
                 });
             } else {
@@ -87,20 +97,18 @@ export default function SwipeCard({
                     },
                 ]}
             >
-                <View>
-                    <UserCardInfo
-                        name={user.name}
-                        town={user.town}
-                        age={user.age}
-                        country={user.country}
-                    />
-                    <BottomChoiceButtons
-                        likeCallback={handleLike}
-                        dislikeCallback={handleDislike}
-                        favoritesCallback={handleFavorite}
-                        otherUserId={user.id}
-                    />
-                </View>
+                <UserCardInfo
+                    name={user.name}
+                    town={user.town}
+                    age={user.age}
+                    country={user.country}
+                />
+                <BottomChoiceButtons
+                    likeCallback={handleLike}
+                    dislikeCallback={handleDislike}
+                    favoritesCallback={handleFavorite}
+                    otherUserId={user.id}
+                />
             </Animated.View>
         </GestureDetector>
     );

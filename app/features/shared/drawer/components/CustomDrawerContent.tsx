@@ -12,7 +12,7 @@ export default function CustomDrawerContent(props: any) {
     };
 
     return (
-        <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1, backgroundColor: '#FFB6D9' }}>
+        <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1, backgroundColor: 'purple' }}>
             <View>
                 <TouchableOpacity onPress={() => props.navigation.closeDrawer()} style={styles.closeIcon}>
                     <Ionicons name="close" size={28} color="#fff" />

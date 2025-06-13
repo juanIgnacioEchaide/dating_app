@@ -8,14 +8,20 @@ import MatchableSwiper from '../features/shared/swipe/components/MatchablesSwipe
 
 const LecafeScreen = () => {
     const dispatch: AppDispatch = useAppDispatch()
-    const matchablesList = useAppSelector((state: RootState) => state.swipe.list)
+    const {
+        list,
+        loading,
+        error,
+        datingList,
+        friendshipList,
+        relationshipList } = useAppSelector((state: RootState) => state.swipe)
     const token = useAppSelector((state) => state.auth.token)
 
     useEffect(() => {
-        if(token)dispatch(fetchMatchables())
+        if (token) dispatch(fetchMatchables())
     }, [])
 
-    return <View><MatchableSwiper swipeList={matchablesList} /></View>
+    return <View><MatchableSwiper swipeList={list} loading={loading} error={error} /></View>
 }
 
 export default LecafeScreen

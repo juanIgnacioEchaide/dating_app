@@ -2,21 +2,22 @@ import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import SwipeCard from "./SwipeCard";
 import { Matchable } from "../store/swipeSlice";
-import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/store";
 import { useAppSelector } from "@/app/store/hooks";
 import TopFilterButtons from "./TopFilterButtons";
 import { useSharedValue, useDerivedValue, runOnJS } from "react-native-reanimated";
 import SwipeFeedback from "@/app/components/SwipeFeedback";
 
-export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] }) {
+export default function MatchableSwiper({ 
+  swipeList, 
+  loading, 
+  error,
+ }: { swipeList: Matchable[]; loading: boolean; error: string }) {
   const [cards, setCards] = useState<Matchable[]>([]);
-  const [error, setError] = useState(false);
   const [selected, setSelected] = useState<number>(0);
   const [isUserSwiping, setIsUserSwiping] = useState(false);
-  const [feedback, setFeedback] = useState<null | "like" | "dislike">(null);
+  const [feedback, setFeedback] = useState<null | "like" | "dislike" | "favorite">(null);
   const [pendingCardId, setPendingCardId] = useState<string | null>(null);
-  const [noMoreVotes, setNoMoreVotes] = useState<boolean>(false)
   const id = useAppSelector((state) => state.auth.id);
 
   const isSwiping = useSharedValue(false);
@@ -41,12 +42,10 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
     setCards(prevCards => prevCards.filter(card => card.id !== swipedId));
   }, []);
 
-  const handleFavorite = useCallback((id: string) => {
-    try {
-      console.log(id);
-    } catch (err) {
-      console.log(err);
-    }
+  const handleFavorite = useCallback((swipedId: string) => {
+    console.log("Favorited:", swipedId);
+    setFeedback('favorite')
+    setCards(prevCards => prevCards.filter(card => card.id !== swipedId));
   }, []);
 
   const handleFeedbackDone = () => {
@@ -60,7 +59,7 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
   const visibleCards = cards?.slice(0, 3);
 
   if (error) return <View><Text>UPS</Text></View>;
-  if (!visibleCards.length) return <View><Text>loading...</Text></View>;
+  if (loading) return <View><Text>loading...</Text></View>;
 
   return (
     <View style={styles.container}>
@@ -76,7 +75,6 @@ export default function MatchableSwiper({ swipeList }: { swipeList: Matchable[] 
         type={feedback || "like"}
         onDone={handleFeedbackDone}
       />
-
 
       {visibleCards.map((card, index) => {
         const stackOffset = (visibleCards.length - 1 - index) * 15;

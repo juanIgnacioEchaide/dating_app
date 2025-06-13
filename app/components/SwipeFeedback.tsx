@@ -9,7 +9,7 @@ import Animated, {
 
 type Props = {
   visible: boolean;
-  type: "like" | "dislike";
+  type: "like" | "dislike" | "favorite";
   onDone: () => void;
 };
 
@@ -18,7 +18,7 @@ export default function SwipeFeedback({ visible, type, onDone }: Props) {
 
   useEffect(() => {
     if (visible) {
-      opacity.value = withTiming(1, { duration: 200 }, () => {
+      opacity.value = withTiming(1, { duration: 150 }, () => {
         opacity.value = withTiming(0, { duration: 600 }, () => {
           runOnJS(onDone)();
         });
@@ -33,7 +33,7 @@ export default function SwipeFeedback({ visible, type, onDone }: Props) {
   return (
     <Animated.View style={[styles.overlay, animatedStyle]}>
       <Text style={[styles.text, type === "like" ? styles.green : styles.red]}>
-        {type === "like" ? "💚" : "💔"}
+      {type === "like" ? "💚" : type === "dislike" ? "💔" : "⭐"}
       </Text>
     </Animated.View>
   );

@@ -25,7 +25,7 @@ export default function Layout() {
                     screenOptions={{
                         headerTransparent: true,
                         headerTitle: '',
-                        headerTintColor: 'white',
+                        headerTintColor: 'purple',
                         headerShadowVisible: false,
                         headerStyle: { elevation: 0 },
                         drawerType: 'front',

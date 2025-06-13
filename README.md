@@ -33,7 +33,7 @@ git clone https://github.com/juanIgnacioEchaide/dating_app.git
 cd dating_app
 npm install
 npx expo start     # o usar React Native CLI
-
+```
 
 file:///home/test/Pictures/Screenshots/Screenshot%20from%202025-06-13%2000-23-44.png
 file:///home/test/Pictures/Screenshots/Screenshot%20from%202025-06-13%2000-24-08.png

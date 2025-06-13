@@ -42,3 +42,4 @@ file:///home/test/Pictures/Screenshots/Screenshot%20from%202025-06-13%2000-24-24
 file:///home/test/Pictures/Screenshots/Screenshot%20from%202025-06-13%2000-24-39.png
 file:///home/test/Pictures/Screenshots/Screenshot%20from%202025-06-13%2000-25-05.png
 file:///home/test/Pictures/Screenshots/Screenshot%20from%202025-06-13%2001-44-57.png
+

@@ -3,7 +3,7 @@ import { SwipeState } from "../store/swipeSlice"
 
 export const fetchMatchablesAPI = async (): Promise<SwipeState> => {
   const res = await fetch(`/api/swipe`)
-  if (!res.ok) return {loading: false, list: mockMatchables}
+  if (!res.ok) return {loading: false, list: mockMatchables, error: '', selected: "relationship" }
   return res.json()
 }
 

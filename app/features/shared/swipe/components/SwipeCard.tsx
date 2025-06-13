@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, ImageBackground, StyleSheet, Image } from 'react-native';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -99,6 +99,16 @@ export default function SwipeCard({
                     },
                 ]}
             >
+                {user.photoUrl && (
+                    <Image
+                        source={typeof user.photoUrl === 'string'
+                            ? { uri: user.photoUrl }
+                            : user.photoUrl}
+                        style={styles.image}
+                        resizeMode="cover"
+                    />
+
+                )}
                 <UserCardInfo
                     name={user.name}
                     town={user.town}
@@ -123,6 +133,7 @@ export default function SwipeCard({
 const styles = StyleSheet.create({
     card: {
         position: 'absolute',
+        overflow: 'hidden',
         width: SCREEN_WIDTH * 0.9,
         height: 700,
         backgroundColor: 'gray',
@@ -134,4 +145,11 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 5,
     },
+    image: {
+        position: 'absolute',
+        width: '120%',
+        height: '120%',
+        justifyContent: 'center',
+        borderRadius: 12
+    }
 });

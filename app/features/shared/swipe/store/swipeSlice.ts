@@ -14,9 +14,6 @@ export type Matchable = {
 }
 
 export type SwipeState = {
-  friendshipList: Matchable[]
-  datingList: Matchable[]
-  relationshipList: Matchable[]
   list: Matchable[]
   loading: boolean
   selected: 'dating' | 'relationship' | 'friendship' | undefined
@@ -24,9 +21,6 @@ export type SwipeState = {
 }
 
 const initialState: SwipeState = {
-  friendshipList: [],
-  datingList: [],
-  relationshipList: [],
   loading: false,
   list: [],
   selected: undefined,
@@ -61,9 +55,6 @@ const swipeSlice = createSlice({
         state.loading = false
         state.error = ''
         state.list = action.payload.list
-        state.datingList = action.payload.list.filter(user => user.dating)
-        state.friendshipList = action.payload.list.filter(user => user.friendship)
-        state.relationshipList = action.payload.list.filter(user => user.relationship)
       })
       .addCase(fetchMatchables.rejected, (state) => {
         state.loading = false

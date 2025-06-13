@@ -18,7 +18,6 @@ export default function MatchableSwiper({
   const [isUserSwiping, setIsUserSwiping] = useState(false);
   const [feedback, setFeedback] = useState<null | "like" | "dislike" | "favorite">(null);
   const [pendingCardId, setPendingCardId] = useState<string | null>(null);
-  const id = useAppSelector((state) => state.auth.id);
 
   const isSwiping = useSharedValue(false);
 

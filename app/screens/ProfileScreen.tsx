@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { View, Text } from 'react-native'
+import React from 'react'
 
 import { AppDispatch, RootState } from '../store'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
+import BasePage from '../features/shared/placeholders/BasePage'
 
 
 
@@ -12,7 +12,7 @@ const ProfileScreen = () => {
     const id = useAppSelector((state) => state.profile.data?.id)
 
 
-    return <View><Text>Profile</Text></View>
+    return  <BasePage title='Profile' subtitle='here goes the profile'/>
 }
 
 export default ProfileScreen

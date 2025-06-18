@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
     logo: {
         height: 270,
         width: 210,
-        marginTop: 20       
+        marginTop: 20 ,
+        opacity: 0.25     
     },
     button: {
         backgroundColor: 'purple',

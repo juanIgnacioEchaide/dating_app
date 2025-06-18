@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import { View, Text } from 'react-native'
+import React from 'react'
 
 import { AppDispatch, RootState } from '../store'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { fetchMessages } from '../features/messages/store/messagesThunk'
+import BasePage from '../features/shared/placeholders/BasePage'
 
 
 const MessagesScreen = () => {
@@ -12,7 +12,7 @@ const MessagesScreen = () => {
     const id = useAppSelector((state) => state.profile.data?.id)
 
 
-    return <View><Text>Messages</Text></View>
+    return <BasePage title='Messages' subtitle='here goes the chat'/>
 }
 
 export default MessagesScreen

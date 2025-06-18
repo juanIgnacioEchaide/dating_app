@@ -1,10 +1,6 @@
 import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
-import { useNavigation } from "expo-router";
 import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
-
-
-
 
 export default function CustomDrawerContent(props: any) {
     const handleLogout = () => {
@@ -29,8 +25,8 @@ export default function CustomDrawerContent(props: any) {
             </View>
 
             <View style={styles.userDetails}>
-                <Text style={styles.username}>Nombre del Usuario</Text>
-                <Text style={styles.location}>Ubicación del Usuario</Text>
+                <Text style={styles.username}>John Mock</Text>
+                <Text style={styles.location}>Lima</Text>
             </View>
 
             <View style={{ flex: 1 }}>
@@ -60,9 +56,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     avatar: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: 100,
+        height: 100,    
+        borderRadius: 50,
         borderWidth: 2,
         borderColor: '#fff',
     },

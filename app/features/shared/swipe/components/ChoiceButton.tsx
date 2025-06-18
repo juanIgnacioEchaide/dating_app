@@ -12,12 +12,12 @@ interface ChoiceButtonProps {
 const iconMap: Record<string, { name: string; backgroundColor: string; iconColor: string }> = {
     yes: {
         name: 'checkmark',
-        backgroundColor: '#FFB6D9',
+        backgroundColor: 'purple',
         iconColor: '#fff',
     },
     no: {
         name: 'close',
-        backgroundColor: '#C9B7B7',
+        backgroundColor: 'pink',
         iconColor: '#fff',
     },
     add_to_favorites: {

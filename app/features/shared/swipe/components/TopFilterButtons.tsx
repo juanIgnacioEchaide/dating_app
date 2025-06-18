@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import FilterButton from "./FilterButton";
+import FilterButton, { LabelType } from "./FilterButton";
 
 export type FilterButton = { label: string, type: string, selected: boolean, param: string, }
 
@@ -34,7 +34,7 @@ export default function TopFilterButtons({ isTopCard, selected, setSelected }: {
             {FILTER_BUTTONS.map((filterButton: FilterButton, idx: number) =>
                 <FilterButton
                     key={filterButton.label}
-                    label={filterButton.label}
+                    label={filterButton.label as LabelType}
                     selected={selected === idx}
                     onPress={() => setSelected(idx)} />)}
             </View>

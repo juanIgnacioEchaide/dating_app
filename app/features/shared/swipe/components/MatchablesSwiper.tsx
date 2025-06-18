@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import SwipeCard from "./SwipeCard";
 import { Matchable } from "../store/swipeSlice";
@@ -7,6 +7,7 @@ import { useAppSelector } from "@/app/store/hooks";
 import TopFilterButtons from "./TopFilterButtons";
 import { useSharedValue, useDerivedValue, runOnJS } from "react-native-reanimated";
 import SwipeFeedback from "@/app/components/SwipeFeedback";
+import NoMoreVotes from "./NoMoreVotes";
 
 export default function MatchableSwiper({ 
   swipeList, 
@@ -18,7 +19,9 @@ export default function MatchableSwiper({
   const [isUserSwiping, setIsUserSwiping] = useState(false);
   const [feedback, setFeedback] = useState<null | "like" | "dislike" | "favorite">(null);
   const [pendingCardId, setPendingCardId] = useState<string | null>(null);
-
+  const isEmpty = useMemo(() => {
+    return cards?.length === 0
+  },[cards])
   const isSwiping = useSharedValue(false);
 
   useEffect(() => {
@@ -59,6 +62,7 @@ export default function MatchableSwiper({
 
   if (error) return <View><Text>UPS</Text></View>;
   if (loading) return <View><Text>loading...</Text></View>;
+  if (isEmpty) return <NoMoreVotes />;
 
   return (
     <View style={styles.container}>

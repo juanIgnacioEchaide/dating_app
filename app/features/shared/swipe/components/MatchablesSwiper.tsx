@@ -6,8 +6,9 @@ import { AppDispatch } from "@/app/store";
 import { useAppSelector } from "@/app/store/hooks";
 import TopFilterButtons from "./TopFilterButtons";
 import { useSharedValue, useDerivedValue, runOnJS } from "react-native-reanimated";
-import SwipeFeedback from "@/app/components/SwipeFeedback";
+
 import NoMoreVotes from "./NoMoreVotes";
+import SwipeFeedback from "./SwipeFeedback";
 
 export default function MatchableSwiper({ 
   swipeList, 

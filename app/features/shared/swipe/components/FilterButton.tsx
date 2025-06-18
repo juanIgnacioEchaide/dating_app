@@ -35,42 +35,49 @@ const styles = StyleSheet.create<{
   label: TextStyle;
 }>({
   container: {
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 10,
+    backgroundColor: 'red',
   },
   image: {
-    justifyContent: 'flex-end',
-    width: 90,
-    height: 90,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 78,
+    height: 78,
+    aspectRatio: 1,
   },
   circle: {
+    display: 'flex',
     width: 90,
     height: 90,
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 45,
   },
   circleSelected: {
+    justifyContent: 'center',
+    alignItems: 'center',
     opacity: 1,
     borderWidth: 4,
     borderColor: '#fff',
-    backgroundColor: 'transparent',
-    borderRadius: 50,
+    borderRadius: 45,
+
+
   },
   iconPlaceholder: {
-    width: 60,
-    height: 60,
+    width: 90,
+    height: 90,
     backgroundColor: '#ccc',
-    borderRadius: 50,
+    borderRadius: 45,
   },
   label: {
-    marginTop: 20,
     fontWeight: 'bold',
     justifyContent: 'center',
     color: 'white',
-    fontSize: 16,
-    width: 100,
   },
 });
 

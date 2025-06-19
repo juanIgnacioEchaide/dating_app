@@ -34,11 +34,17 @@ cd dating_app
 npm install
 npx expo start     # o usar React Native CLI
 ```
-![Screenshot from 2025-06-13 00-24-18](https://github.com/user-attachments/assets/12218c28-8f7e-413e-b3b8-c9e9387345e5)
-![Screenshot from 2025-06-13 00-24-08](https://github.com/user-attachments/assets/1dc68635-c28a-4fe0-bbc8-73df192e363d)
-![Screenshot from 2025-06-13 00-24-24](https://github.com/user-attachments/assets/b20a7277-8db7-4c3d-9074-95ba473cea06)
-![Screenshot from 2025-06-13 00-24-39](https://github.com/user-attachments/assets/9ecc965d-948e-4701-8ae7-0bcce92bd13c)
-![Screenshot from 2025-06-13 00-25-05](https://github.com/user-attachments/assets/8e68fe6f-fbec-47f2-b666-d83b44993711)
+![image](https://github.com/user-attachments/assets/86e6b4fd-9a93-45bc-9f15-ec374ca4c7dd)
+![image](https://github.com/user-attachments/assets/bda9896e-9241-4d6e-b9ed-adee9e92f945)
+![image](https://github.com/user-attachments/assets/74f376dc-7906-44ec-8147-3d06202808d3)
+![image](https://github.com/user-attachments/assets/86be3282-5a49-4e53-a9e2-b45b88816a0c)
+![image](https://github.com/user-attachments/assets/2182286c-3206-4973-9cd6-75a0eaade99b)
+![image](https://github.com/user-attachments/assets/55028c58-1cef-4594-9e6c-09fddfeafa99)
+![image](https://github.com/user-attachments/assets/0a55e030-fdd6-41d3-9784-8252cffca174)
+![image](https://github.com/user-attachments/assets/5c60925f-4c47-4834-a5af-c965e8ffcafc)
+![image](https://github.com/user-attachments/assets/0e35cfaf-0edf-4232-a496-4b16bed83925)
+
+
 
 
 
